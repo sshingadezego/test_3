@@ -1,0 +1,64 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: hello-world-template
+  title: Hello World
+  description: Says Hello to a specified name.
+spec:
+  owner: backstage/techdocs-core
+  type: service
+
+  parameters:
+    - title: You are about to say hello to your first Backstage Template
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        remotes:
+          type: array
+          title: Remotes
+          items:
+            type: object
+            required:
+              - app
+              - location
+            properties:
+              app:
+                type: string
+                title: Application
+                description: An application
+              location:
+                type: string
+                title: locationå
+                description: Enter location of application
+        exposes:
+          type: array
+          title: Exposes
+          items:
+            type: object
+            required:
+              - component
+              - source
+            properties:
+              component:
+                type: string
+                title: Component
+                description: A component
+              location:
+                type: string
+                title: Source
+                description: Source of the component
+              
+              
+            
+          
+        
+          
+
+  steps:
+    - id: log-message
+      name: Log Message
+      action: debug:log
+      input:
+        message: 'Hello, ${{ parameters.name }} and {% for tas in parameters.remotes %} ${{ remotes.app }} : ${{ remotes.location }}, {% endfor %}!'
